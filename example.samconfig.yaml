@@ -1,0 +1,9 @@
+version: 0.1
+default:
+  deploy:
+    parameters:
+      s3_bucket: xxx
+      stack_name: xxx
+      region: ap-northeast-1
+      capabilities: CAPABILITY_NAMED_IAM
+      parameter_overrides: "S3BucketName=xxx DynamoDBName=xxx LINECHANNELACCESSTOKEN=xxx RequestsLayerArn=xxx"

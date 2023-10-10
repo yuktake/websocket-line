@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket画像送信</title>
+    <style>
+        .box {
+            display: inline-block;
+            border: double;
+        }
+        .box p {
+            margin: 1px;
+            padding: 1px;
+            font-size: 80%;
+        }
+    </style>
+</head>
+<body>
+    <img src="" alt="image" id="img">
+    <div id="box" class="box">
+        <p>WebSocket未接続</p>
+    </div>
+
+    <script>
+        const img = document.getElementById('img');
+        // WebSocket URL
+        const socket = new WebSocket("wss://----.execute-api.{your-region}.amazonaws.com/{your-stage}");
+
+        // 接続後、表示する文字列を変更する
+        socket.onopen = (e) => {
+            console.log(e)
+            div_box = document.getElementById('box');
+            p_element = div_box.getElementsByTagName('p');
+            p_element[0].innerHTML = "WebSocket接続中";
+        };
+
+        // 画像保存先のS3 URLが送られてくるので、imgタグのsrcをそのURLに変更する
+        socket.onmessage = (e) => {
+            img.src = e.data;
+        };
+    </script>
+</body>
+</html>
